@@ -2,12 +2,13 @@
 @section('content')<br>
 <div class="container">
     <div class="float-left">
-        <h2><a href="{{URL::to('')}}/racks" style="text-decoration: none">All Racks</a></h2>
+        <h2><a href="{{URL::to('')}}/racks" style="text-decoration: none">All Racks {{$role}}</a></h2>
     </div>
+    {{--@if($role == 1)--}}
     <div>
         <a href="{{URL::to('')}}/add/new/rack" class="btn float-right mr-4 new-rack-btn-color">Add New Rack</a><br>
     </div>
-
+    {{--@endif--}}
     <div class="row col-md-12 custyle">
         <table class="table table-striped">
             <thead>
@@ -21,7 +22,7 @@
                 <td>{{$rack->id}}</td>
                 <td><a href="{{URL::to('')}}/racks/{{$rack->id}}/books">{{$rack->name}}</a></td>
             </tr>
-                @endforeach
+            @endforeach
         </table>
     </div>
 </div>

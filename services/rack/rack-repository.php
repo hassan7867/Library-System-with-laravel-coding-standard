@@ -3,6 +3,8 @@
 namespace services\rack;
 use App\RackTable;
 use DB;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use library_system\rack\Name;
 
 class RackRepository
@@ -18,7 +20,7 @@ class RackRepository
 
     public function index()
     {
-        $racks = RackTable::all();
-        return view('template/pages/show-racks')->with(['racks' => $racks]);
+            $racks = RackTable::all();
+            return view('template/pages/show-racks')->with(['racks' => $racks, 'role' => Session::get('role')]);
     }
 }
