@@ -25,11 +25,6 @@ class UserController extends Controller
 
     public function index()
     {
-        if(empty(Session::get('role'))){
-            return view('template/index');
-        }else{
-            return redirect('rack');
-        }
-
+       return view('template/index');
     }
 }

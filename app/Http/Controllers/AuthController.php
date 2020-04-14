@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RackTable;
 use App\User;
 use App\UserRole;
 use Illuminate\Http\Request;
@@ -16,10 +17,11 @@ class AuthController extends Controller
         if(User::where(['email' => $request->email])->exists()){
             $dbpassword = User::where(['email' => $request->email])->first();
             if(password_verify(($request->password), $dbpassword->password)){
-                $roleId = UserRole::where('id_user')->first()['id_role'];
-                Session::put('role', $roleId);
-                return redirect('racks')->with(['role' => $roleId]);
-            }else{
+                $roleId = UserRole::where('id_user', $dbpassword->id)->first()['id_role'];
+                $racks = RackTable::all();
+                return view('template/pages/show-racks')->with(['racks' => $racks, 'role' => $roleId]);
+            }
+            else{
                 return view('template/pages/authentication/admin/admin-login')->with(['error' => 'Invalid email or Password']);
             }
         }
@@ -32,9 +34,9 @@ class AuthController extends Controller
         if(User::where(['email' => $request->email])->exists()){
             $dbpassword = User::where(['email' => $request->email])->first();
             if(password_verify(($request->password), $dbpassword->password)){
-                $roleId = UserRole::where('id_user')->first()['id_role'];
-                Session::put('role', $roleId);
-                return redirect('racks')->with(['role' => $roleId]);
+                $roleId = UserRole::where('id_user', $dbpassword->id)->first()['id_role'];
+                $racks = RackTable::all();
+                return view('template/pages/show-racks')->with(['racks' => $racks, 'role' => $roleId]);
             }else{
                 return view('template/pages/authentication/user/user-login')->with(['error' => 'Invalid email or Password']);
             }
@@ -60,8 +62,8 @@ class AuthController extends Controller
                 $userRole->id_user = $user->id;
                 $userRole->id_role = 2;
                 $userRole->save();
-                Session::put('role', 2);
-                return redirect('racks')->with(['role' => 2]);
+                $racks = RackTable::all();
+                return view('template/pages/show-racks')->with(['racks' => $racks, 'role' => 2]);
             } else {
                 return view('template/pages/authentication/user/add-user')->with(['error' => 'Email Already Exists']);
             }
