@@ -4,9 +4,11 @@
     <div class="float-left">
         <h2>{{$rackName}}</h2>
     </div>
+{{--    @if($role == 1)--}}
     <div>
         <a href="{{URL::to('')}}/racks/{{$rackId}}/books/create" class="btn float-right mr-4 new-rack-btn-color">Add New Books</a><br>
     </div>
+    {{--@endif--}}
     <div class="row col-md-12 custyle">
         <table class="table table-striped">
             <thead>
