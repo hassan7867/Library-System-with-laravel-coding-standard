@@ -20,7 +20,7 @@ class RackRepository
 
     public function index()
     {
-            $racks = RackTable::all();
-            return view('template/pages/show-racks')->with(['racks' => $racks, 'role' => Session::get('role')]);
+        $racks = RackTable::all();
+        return view('template/pages/show-racks')->with(['racks' => $racks]);
     }
 }
