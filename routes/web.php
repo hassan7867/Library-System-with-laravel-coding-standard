@@ -14,5 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('template/index');
 });
+Route::resource('racks','RackController');
+Route::get('add/new/rack','RackController@create');
+Route::resource('racks/{id}/books','BooksController');
+Route::get('racks/{id}/books/create','BooksController@create');
+Route::get('admin','UserController@showAdminLogin');
